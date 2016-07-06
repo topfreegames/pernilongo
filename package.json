@@ -1,7 +1,7 @@
 {
-  "name": "pernilongo",
+  "name": "pernilongo-plugin",
   "version": "0.5.0",
-  "description": "",
+  "description": "A pomelo plugin that talks to redis for registering, authorizing and unauthorizing users in rooms/topics of a mosquitto server",
   "main": "index.js",
   "scripts": {
     "test": "mocha ./tests/*"
