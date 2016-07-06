@@ -1,0 +1,17 @@
+language: node
+
+node:
+  - 6.2
+
+services:
+  - redis
+
+before_install:
+  - nvm install 6.2.2
+  - nvm use 6.2.2
+
+install:
+  - make setup-ci
+
+script:
+  - make test-ci
