@@ -7,7 +7,7 @@
 
 
 var pomelo = require('pomelo');
-var pernilongo = require('../')
+var pernilongo = require('../../')
 
 /**
  * Init app for client.
