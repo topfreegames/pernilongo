@@ -13,4 +13,4 @@ test-ci: test
 test: run-tests
 
 run-tests:
-	@./node_modules/mocha/bin/mocha tests/integration/
+	@./node_modules/mocha/bin/mocha tests/*
