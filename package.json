@@ -1,0 +1,28 @@
+{
+  "name": "pernilongo",
+  "version": "0.5.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/topfreegames/pernilongo.git"
+  },
+  "keywords": [
+    "pomelo",
+    "mqtt",
+    "mosquitto"
+  ],
+  "author": "Felipe Cavalcanti",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/topfreegames/pernilongo/issues"
+  },
+  "homepage": "https://github.com/topfreegames/pernilongo#readme",
+  "dependencies": {
+    "mqtt": "^1.12.0",
+    "pomelo": "^2.0.0"
+  }
+}
