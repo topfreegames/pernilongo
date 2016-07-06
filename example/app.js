@@ -36,9 +36,7 @@ app.configure('production|development', 'connector', function(){
     });
     app.use(pernilongo, {
       pernilongo: {
-        mosquittoUrl: "mqtt://localhost",
-        mosquittoUser: "admin",
-        mosquittoPass: "admin"
+        redisUrl: "//localhost:6379"
       }
     })
 });
