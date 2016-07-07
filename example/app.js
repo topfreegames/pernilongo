@@ -7,7 +7,7 @@
 
 
 var pomelo = require('pomelo');
-var pernilongo = require('../../')
+var pernilongo = require('../')
 
 /**
  * Init app for client.
@@ -36,7 +36,7 @@ app.configure('production|development', 'connector', function(){
     });
     app.use(pernilongo, {
       pernilongo: {
-        redisUrl: "//localhost:6379"
+        redisUrl: process.env.REDIS_URL || "//localhost:6379"
       }
     })
 });
