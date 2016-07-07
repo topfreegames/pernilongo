@@ -39,3 +39,12 @@ Handler.prototype.unauthorizePlayerInRooms = function(msg, session, next) {
     return next(new Error('failed to unauthorize player'))
   })
 }
+
+Handler.prototype.registerPlayerAndAuthorizeInRooms = function(msg, session, next) {
+  logger.debug('registering player', msg.user, 'and authorizing in rooms:', msg.rooms)
+  this.pernilongo.registerPlayerAndAuthorizeInRooms(msg.user, msg.pass, msg.rooms).then(res => {
+    return next(null, 'player registered and authorized in rooms!')
+  }).catch(e => {
+    return next(new Error('failed to unauthorize player'))
+  })
+}

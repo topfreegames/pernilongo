@@ -21,6 +21,19 @@ e.registerPlayer = function(client, user, pass, cb){
   })
 }
 
+e.registerPlayerAndAuthorizeInRooms = function(client, user, pass, rooms, cb){
+  var reqRoute = 'connector.entryHandler.registerPlayerAndAuthorizeInRooms'
+  var payload = {
+    user: user,
+    pass: pass,
+    rooms: rooms
+  }
+
+  client.request(reqRoute, payload, res => {
+    cb(res)
+  })
+}
+
 e.authorizePlayer = function(client, user, rooms, cb){
   var reqRoute = 'connector.entryHandler.authorizePlayerInRooms'
   var payload = {

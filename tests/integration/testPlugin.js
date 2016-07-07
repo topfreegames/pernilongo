@@ -12,6 +12,14 @@ describe('Integration', () =>{
     })
   })
 
+  it('Should register user and authorize in rooms', function(done){
+    var self = this   
+    helper.registerPlayerAndAuthorizeInRooms(self.pomeloClient, 'testplayer', 'testpass', ['test1'], res => {
+      assert.equal(res, 'player registered and authorized in rooms!')
+      done()
+    })
+  })
+
   it('Should authorize user', function(done){
     var self = this   
     helper.authorizePlayer(self.pomeloClient, 'testplayer', ['testroom1', 'testroom2'], res => {
