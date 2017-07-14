@@ -46,6 +46,19 @@ e.authorizePlayer = function(client, user, rooms, cb){
   })
 }
 
+e.authorizePlayerWithExpireTime = function(client, user, rooms, expireTime, cb){
+  var reqRoute = 'connector.entryHandler.authorizePlayerInRoomsWithExpireTime'
+  var payload = {
+    user: user,
+    rooms: rooms,
+    expireTime: expireTime
+  }
+
+  client.request(reqRoute, payload, res => {
+    cb(res)
+  })
+}
+
 e.unauthorizePlayer = function(client, user, rooms, cb){
   var reqRoute = 'connector.entryHandler.unauthorizePlayerInRooms'
   var payload = {

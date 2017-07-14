@@ -31,6 +31,15 @@ Handler.prototype.authorizePlayerInRooms = function(msg, session, next) {
   })
 }
 
+Handler.prototype.authorizePlayerInRoomsWithExpireTime = function(msg, session, next) {
+  logger.debug('authorizing player', msg.user, 'in rooms', msg.rooms)
+  this.pernilongo.authorizePlayerInRoomsWithExpireTime(msg.user, msg.rooms, msg.expireTime).then(res => {
+    return next(null, 'player authorized!')
+  }).catch(e => {
+    return next(new Error('failed to authorize player'))
+  })
+}
+
 Handler.prototype.unauthorizePlayerInRooms = function(msg, session, next) {
   logger.debug('unauthorizing player', msg.user, 'in rooms', msg.rooms)
   this.pernilongo.unauthorizePlayerInRooms(msg.user, msg.rooms).then(res => {
