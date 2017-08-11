@@ -20,8 +20,10 @@ app.configure('production|development', function(){
   app.set('monitorConfig',
     {
       monitor : pomelo.monitors.redismonitor,
-      host: "127.0.0.1",
-      port: "6379"
+      redisNodes: {
+        host: "127.0.0.1",
+        port: "3434"
+      }
     })
 });
 
