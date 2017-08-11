@@ -24,7 +24,7 @@
   "dependencies": {
     "bluebird": "^3.4.1",
     "mqtt": "^1.12.0",
-    "pomelo": "topfreegames/pomelo#dev-redismonitor-light",
+    "pomelo": "topfreegames/pomelo#new-pomelo-logger",
     "redis": "^2.6.2"
   },
   "devDependencies": {
