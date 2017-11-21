@@ -23,7 +23,9 @@
   "homepage": "https://github.com/topfreegames/pernilongo#readme",
   "dependencies": {
     "bluebird": "^3.4.1",
+    "mongodb": "^2.2.33",
     "mqtt": "^1.12.0",
+    "pg": "^7.4.0",
     "pomelo": "topfreegames/pomelo#new-pomelo-logger",
     "redis": "^2.6.2"
   },
