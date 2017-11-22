@@ -22,7 +22,7 @@ app.configure('production|development', function(){
       monitor : pomelo.monitors.redismonitor,
       redisNodes: {
         host: "127.0.0.1",
-        port: "3434"
+        port: process.env.POMELO_REDIS_PORT || "3434"
       }
     })
 });
@@ -38,7 +38,7 @@ app.configure('production|development', 'connector', function(){
     });
     app.use(pernilongo, {
       pernilongo: {
-        redisUrl: process.env.REDIS_URL || "//localhost:6379"
+        mongoUrl: process.env.MONGO_URL || "//localhost:6379"
       }
     })
 });
