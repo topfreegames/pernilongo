@@ -27,9 +27,9 @@ process.env.LOG_LEVEL = 'none'
 global.serversConfig = {
   connector: {
     host: '127.0.0.1',
-    port: 3334,
+    port: 3150,
     clientHost: '127.0.0.1',
-    clientPort: 3333,
+    clientPort: 3010,
     frontend: true
   }
 }
