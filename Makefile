@@ -32,7 +32,7 @@ run-tests:
 # get a redis instance up (localhost:3434)
 run-deps:
 	@docker-compose up -d 
-	@sleep 5
+	@sleep 10
 
 # kill this redis instance (localhost:3434)
 kill-deps:
