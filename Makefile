@@ -10,11 +10,12 @@ setup-ci:
 
 test-ci: test
 
-test: redis run-test-game-server run-tests kill-game-server kill-redis
+test: run-deps run-test-game-server run-tests kill-game-server kill-deps
 
-run-test-game-server: redis
+run-test-game-server: run-deps
+	@sleep 5
 	@rm -rf /tmp/kublai-pomelo.log
-	@REDIS_URL=//localhost:3434 node example/app.js host=127.0.0.1 port=3334 clientPort=3333 frontend=true serverType=connector 2>&1 > /tmp/kublai-pomelo.log &
+	@POMELO_REDIS_PORT=7677 MONGO_URL=mongodb://localhost:27017/mqtt node example/app.js host=127.0.0.1 port=3334 clientPort=3010 frontend=true serverType=connector 2>&1 > /tmp/kublai-pomelo.log &
 	@sleep 3
 
 kill-game-server:
@@ -24,10 +25,9 @@ run-tests:
 	@npm test
 
 # get a redis instance up (localhost:3434)
-redis:
-	@redis-server ./tests/redis.conf; sleep 1
-	@redis-cli -p 3434 info > /dev/null
+run-deps:
+	@docker-compose up -d 
 
 # kill this redis instance (localhost:3434)
-kill-redis:
-	@-redis-cli -p 3434 shutdown
+kill-deps:
+	@docker-compose down
