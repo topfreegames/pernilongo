@@ -1,0 +1,11 @@
+version: '3.3'
+services:
+  redis:
+    image: redis:3.2.4-alpine
+    ports:
+      - "7677:6379"
+  mongo:
+    image: mongo:3.0.15-wheezy
+    ports:
+      - "27017:27017"
+    

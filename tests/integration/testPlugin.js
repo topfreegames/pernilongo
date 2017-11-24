@@ -49,3 +49,57 @@ describe('Integration', () =>{
   })
 
 })
+
+describe('Database Connection', function() {
+
+  var MongoClient = require('mongodb').MongoClient;
+
+  it("Should save user into database after registration", function(done) {
+    var self = this;
+    helper.registerPlayer(self.pomeloClient, 'testslayer', 'testpass', res => {
+
+      var setAccessData = function() {
+        MongoClient.connect('mongodb://localhost:27017/mqtt', function(err, db) {
+            if (err) throw err;
+            db.collection('mqtt_user').findOne({username: "testslayer"})
+            .then(function(result) {
+                db.close(test(result.username))
+            });
+        });
+      }
+
+      var test = function(username) {
+        expect(username).to.eql("testslayer");
+        done();
+      }
+
+      setAccessData();
+    })
+  })
+
+  it("Should store a hashed password into database", function(done) {
+    var self = this;
+    helper.registerPlayer(self.pomeloClient, 'testslayer2', 'newpass', res => {
+      
+      var setAccessData = function() {
+        MongoClient.connect('mongodb://localhost:27017/mqtt', function(err, db) {
+            if (err) throw err;
+            db.collection('mqtt_user').findOne({username: "testslayer2"})
+            .then(function(result) {
+                db.close(test(result.password, result.salt))
+            });
+        });
+      }
+
+      var test = function(password, salt) {
+        var crypto = require('crypto');
+        var hash = crypto.pbkdf2Sync("newpass", salt, 1000, 20, 'sha256').toString('hex');
+        expect(password).to.eql(hash);
+        done();
+      }
+
+      setAccessData();
+    })
+  })
+
+})
