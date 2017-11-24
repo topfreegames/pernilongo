@@ -52,54 +52,46 @@ describe('Integration', () =>{
 
 describe('Database Connection', function() {
 
-  var MongoClient = require('mongodb').MongoClient;
+  var db;
+
+  before(function(done){
+    var MongoClient = require('mongodb').MongoClient;
+    var connection = MongoClient.connect('mongodb://localhost:27017/mqtt');
+    connection.then(function(_db){
+      db = _db;
+      done();
+    })
+  })
 
   it("Should save user into database after registration", function(done) {
     var self = this;
     helper.registerPlayer(self.pomeloClient, 'testslayer', 'testpass', res => {
-
-      var setAccessData = function() {
-        MongoClient.connect('mongodb://localhost:27017/mqtt', function(err, db) {
-            if (err) throw err;
-            db.collection('mqtt_user').findOne({username: "testslayer"})
-            .then(function(result) {
-                db.close(test(result.username))
-            });
-        });
-      }
-
-      var test = function(username) {
-        expect(username).to.eql("testslayer");
-        done();
-      }
-
-      setAccessData();
+        db.collection('mqtt_user').findOne({username: "testslayer"})
+        .then(function(result) {
+          assert.equal(result.username, "testslayer");
+          done();
+        })
+        .catch(done);
     })
   })
 
-  it("Should store a hashed password into database", function(done) {
+  it("Should store a pbkdf2-hashed password into the database", function(done) {
     var self = this;
     helper.registerPlayer(self.pomeloClient, 'testslayer2', 'newpass', res => {
-      
-      var setAccessData = function() {
-        MongoClient.connect('mongodb://localhost:27017/mqtt', function(err, db) {
-            if (err) throw err;
-            db.collection('mqtt_user').findOne({username: "testslayer2"})
-            .then(function(result) {
-                db.close(test(result.password, result.salt))
-            });
-        });
-      }
-
-      var test = function(password, salt) {
-        var crypto = require('crypto');
-        var hash = crypto.pbkdf2Sync("newpass", salt, 1000, 20, 'sha256').toString('hex');
-        expect(password).to.eql(hash);
-        done();
-      }
-
-      setAccessData();
+          db.collection('mqtt_user').findOne({username: "testslayer2"})
+          .then(function(result) {
+            var crypto = require('crypto');
+            var hash = crypto.pbkdf2Sync("newpass", result.salt, 1000, 20, 'sha256').toString('hex');
+            assert.equal(result.password, hash);
+            done();
+          })
+          .catch(done);
     })
   })
+
+  after(function(done) {
+    db.close();
+    done();
+  });
 
 })
