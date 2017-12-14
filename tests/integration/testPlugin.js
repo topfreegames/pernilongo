@@ -51,7 +51,6 @@ describe('Integration', () =>{
 })
 
 describe('Database Connection', function() {
-
   var db;
 
   before(function(done){
