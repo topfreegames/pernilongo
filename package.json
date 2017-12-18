@@ -1,6 +1,6 @@
 {
   "name": "pernilongo-plugin",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "description": "A pomelo plugin that talks to redis for registering, authorizing and unauthorizing users in rooms/topics of a mosquitto server",
   "main": "index.js",
   "scripts": {

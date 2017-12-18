@@ -29,13 +29,11 @@ run-tests:
 		(exit 1) \
 	fi; \
 
-# get a redis instance up (localhost:3434)
 run-deps:
 	@docker-compose up -d
 	@until echo "echo 'db.stats().ok' | mongo mongo:27017/test --quiet" | docker exec --interactive pernilongo_mongo_1 /bin/bash -; do warn 'Waiting for Mongo...' && sleep 1; done
 	@sleep 10
 
-# kill this redis instance (localhost:3434)
 kill-deps:
 	@docker-compose down
 	@sleep 3
